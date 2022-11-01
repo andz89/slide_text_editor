@@ -142,12 +142,12 @@ Quill.register({ 'formats/video': Video });
   
   document.querySelector('.reveal').addEventListener('click', ()=>{
   if(hide == false){
-  document.querySelector('#tools').style.transform = "translateX(-100%)";
+  document.querySelector('#tools').style.transform = "translateY(-100%)";
 
   show_toolbar.style.display = 'inline-block'
   hide = true
   }else{
-  document.querySelector('#tools').style.transform = "translateX(0)";
+  document.querySelector('#tools').style.transform = "translateY(0)";
   show_toolbar.style.display = 'none'
   hide = false
   }
@@ -171,8 +171,8 @@ Reveal.on( 'slidechanged', event => {
        
 const value =  document.querySelector('.present').innerHTML
 editor.clipboard.dangerouslyPasteHTML(value)
-
-
+document.querySelector('#tools').style.transform = "translateY(-100%)";
+editor.root.blur()
   } );
 
 //add slide
@@ -216,3 +216,5 @@ editor.on('editor-change', function(eventName, ...args) {
 });
 
 
+
+document.querySelector('#editor').style.height= '700px'
