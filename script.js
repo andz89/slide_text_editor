@@ -174,7 +174,7 @@ editor.clipboard.dangerouslyPasteHTML(value)
 document.querySelector('#tools').style.transform = "translateY(-100%)";
 editor.root.blur()
   } );
-
+console.log('test')
 //add slide
 document.querySelector('.add_slide').addEventListener('click',()=>{
    let section = document.createElement('section')
