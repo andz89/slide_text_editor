@@ -4,28 +4,20 @@ body{
     justify-content: center;
 }
 #tools{
-
     position: absolute;
     z-index: 9999;
     background-color: #fff ;
     transition:0.3s;
     transform:translateY(0) ;
     margin: 0 20px;
-
-   
-
 }
 #editor{
-
     background-color: #fff ;
-
     margin:auto;
     width: 960px;
-
 }
 
-
-    .reveal section p{
-        padding: 0;
-        margin: 0;
-    }
+.reveal section p{
+padding: 0;
+margin: 0;
+}
