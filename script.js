@@ -1,68 +1,36 @@
 
-	// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
+
 			Reveal.initialize({
 				hash: true,
 				center:false,
-        controls: true,
-				// margin:0,
-				// width:"100%",
-				// height:"100%",
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				// plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 
 
 var toolbarOptions = [
-  ['link', 'image','video','formula'],
+  ['link', 'image','video'],
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
+  ['blockquote'],
+  // ['code-block'],
 
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
+  // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  // [{ 'direction': 'rtl' }],                         // text direction
 
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
-  [{ 'align': [] }],
+  // [{ 'font': [] }],
+  // [{ 'align': [] }],
 
   
-  ['clean']                                         // remove formatting button
+  // ['clean']                                         // remove formatting button
 ];
-function imageHandler(){
-  console.log('sfsd')
-   const input = document.createElement('input');
- 
-   input.setAttribute('type', 'file');
-   input.setAttribute('accept', 'image/*');
-   input.click();
- 
-   input.onchange = async () => {
-     const file = input.files[0];
-     const formData = new FormData();
- 
-     formData.append('image', file);
- 
-     // Save current cursor state
-     const range = this.quill.getSelection(true);
- 
-    
-    //  const link = `${'sfs'}/file/${'adas222'}`
-     const link = `tree.jpg`;
 
-
-     // this part the image is inserted
-     // by 'image' option below, you just have to put src(link) of img here. 
-     this.quill.insertEmbed(range.index, 'image', link); 
-   }
- }
   
   var BaseImageFormat = Quill.import('formats/image');
   const ImageFormatAttributesList = [
@@ -94,8 +62,22 @@ function imageHandler(){
     }
   }
   
+
+
+
   Quill.register(ImageFormat, true);
-                  
+ // Import the format
+
+import { Video } from './library/video-resize.js'
+
+
+// register with Quill
+Quill.register({ 'formats/video': Video });
+
+
+
+
+
                   
   var editor = new Quill('#editor', {
       theme: 'snow',
@@ -107,48 +89,81 @@ function imageHandler(){
         
         handlers: {
           
-          image: this.imageHandler
+          image: function imageHandler(){
+            console.log('sfsd')
+             const input = document.createElement('input');
+           
+             input.setAttribute('type', 'file');
+             input.setAttribute('accept', 'image/*');
+             input.click();
+           
+             input.onchange = async () => {
+               const file = input.files[0];
+               const formData = new FormData();
+           
+               formData.append('image', file);
+           
+               // Save current cursor state
+               const range = this.quill.getSelection(true);
+           
+              
+              //  const link = `${'sfs'}/file/${'adas222'}`
+               const link = `tree.jpg`;
+          
+          
+               // this part the image is inserted
+               // by 'image' option below, you just have to put src(link) of img here. 
+               this.quill.insertEmbed(range.index, 'image', link); 
+             }
+           }
         },
       },
-          imageResize: {}
+
+
+    imageResize: {
+      displaySize: true,
+      toobar:true,
+      displaySize:true
+    },
       }
   });
   
-
+  editor.root.quill = editor;
 
   let hide = false
   let show_toolbar = document.querySelector('#show_toolbar')
   show_toolbar.addEventListener('click',()=>{
   document.querySelector('#editor').style.display = 'block'
   document.querySelector('.ql-toolbar').style.display = 'block'
+  show_toolbar.style.display = 'none'
   hide = false
   
   })
   
   document.querySelector('.reveal').addEventListener('click', ()=>{
   if(hide == false){
-  document.querySelector('#editor').style.display = 'none'
-  document.querySelector('.ql-toolbar').style.display = 'none'
+  document.querySelector('#tools').style.transform = "translateX(-100%)";
+
   show_toolbar.style.display = 'inline-block'
   hide = true
+  }else{
+  document.querySelector('#tools').style.transform = "translateX(0)";
+  show_toolbar.style.display = 'none'
+  hide = false
   }
-  
+  // reload()
   })
   
   
+function reload(){
 
+  var justHtml = editor.root.innerHTML;
+  document.querySelector('.present').innerHTML = justHtml
+}
   
-let refresh = document.querySelector('.refresh')
-refresh.addEventListener('click', ()=>{
-  var delta = editor.getContents();
-
- 
-
- 
-var text = editor.getText();
-var justHtml = editor.root.innerHTML;
-document.querySelector('.present').innerHTML = justHtml
-
+let apply = document.querySelector('.apply')
+apply.addEventListener('click', ()=>{
+  reload()
 })
 
 
@@ -164,6 +179,7 @@ editor.clipboard.dangerouslyPasteHTML(value)
 document.querySelector('.add_slide').addEventListener('click',()=>{
    let section = document.createElement('section')
     section.innerText ="new slide"
+    section.attribute = 'data-transition="slide-in fade-out"'
     document.querySelector('.slides').append(section)
     Reveal.next()
 })
@@ -173,7 +189,30 @@ document.querySelector('.present').style.textAlign= e.target.value
  
 })
 
+//font size
+document.querySelector('#font_size').addEventListener('change',(e)=>{
+  console.log(e.target.value)
+  document.querySelector('.present').style.fontSize = e.target.value + 'px'
+   
+  })
 
 
+
+
+//event change on text editor
+// editor.on('text-change', function(delta, source) {
+  
+//     reload()
+
+// });
+// editor.on('selection-change', function(range) {
+//   reload()
+
+// });
+
+editor.on('editor-change', function(eventName, ...args) {
+
+  // reload()
+});
 
 

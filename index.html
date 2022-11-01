@@ -12,37 +12,53 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	
 		<link href="./library/quill.snow.css" rel="stylesheet">
+
+
+		<link rel="stylesheet" href="style.css">
+		<link href="./library/video-resize.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 	<body>
-		<div style="background-color: #fff ;"> 
+
+
+
+		<div id="tools"> 
 			<div id="toolbar">
 
 			</div>
+
+			<div style="display: flex;padding:10px;justify-content:center; align-items:center;gap:10px">
+			<button id="show_toolbar" style="display:none ">show  toolbar</button>
+
+			<button class="add_slide">add slide</button>
+			<label for="font_size">Font size:</label><input id="font_size" type="number" style="width: 50px;">
+
+			<select name="" class="text_align">
+			<option value="">Text Alignment</option>
+			<option value="left">left</option>
+			<option value="right">right</option>
+			<option value="center">center</option>
+
+			</select>
+			<button class="apply" style="font-size:14px;color:#fff;background-color:#3432db;border: none;padding:4px 10px;border-radius: 5px;">Apply</button>
+			</div>
+		
+
 			<div id="editor">
 				
 		
 			  </div>
-		   <div style="padding: 3px;">
-		
-		   <button id="show_toolbar">show  toolbar</button>
-		   <button class="refresh">refresh</button>
-		   <button class="add_slide">add slide</button>
-
-			<select name="" class="text_align">
-				<option value="">Text Alignment</option>
-				<option value="left">left</option>
-				<option value="right">right</option>
-				<option value="center">center</option>
-
-			</select>
-		
 		   </div>
-		</div>
+	
+
+
 		<div class="reveal">
 			<div class="slides">
 			
-				<section>
+				<section data-transition="slide-in fade-out">
+						Your Text Here 
 					
 				</section>
 			
@@ -50,7 +66,7 @@
 		</div>
 
 
-		<p><img src="tree.jpg" width="419" style="display: inline; float: right; margin: 0px 0px 1em 1em;"></p><p>Hello World!</p><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate sequi aliquam molestias voluptates commodi reprehenderit repellendus iusto dicta amet consectetur ad delectus, tempora officia a quasi expedita recusandae, quis aut ipsam optio accusamus. Esse fugiat ad commodi eos consectetur nostrum?</p><p><br></p>
+	
 
 
 
@@ -62,7 +78,13 @@
 
 
 		<script src="./library/quill.min.js"></script>
-        <script src="./library/image-resize.min.js"></script>
+
+        <script  src="./library/image-resize.min.js"></script>
+
+     
+
+
+	
         <!-- <script src="./library/textFit.min.js"></script> -->
         
 
@@ -71,6 +93,6 @@
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 	
-		<script src="script.js"></script>
+		<script type="module" src="script.js"></script>
 	</body>
 </html>
