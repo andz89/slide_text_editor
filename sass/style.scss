@@ -1,0 +1,42 @@
+
+
+// Configuration
+// @import "./scss/functions";
+// @import "./scss/variables";
+// @import "./scss/mixins";
+// @import "./scss/utilities";
+
+// // // Layout & components
+
+// // @import "./scss/helpers";
+
+// // @import "./scss/forms";
+
+// @import "./scss/buttons";
+
+// // @import "./scss/type";
+
+@import "./scss/bootstrap";
+body{
+    // color: red;
+    display: flex;
+    justify-content: center;
+}
+#tools{
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff ;
+    transition:0.3s;
+    transform:translateY(0) ;
+    margin: 0 20px;
+}
+#editor{
+    background-color: #fff ;
+    margin:auto;
+    width: 960px;
+}
+
+.reveal section p{
+padding: 0;
+margin: 0;
+}

@@ -133,24 +133,30 @@ Quill.register({ 'formats/video': Video });
   let hide = false
   let show_toolbar = document.querySelector('#show_toolbar')
   show_toolbar.addEventListener('click',()=>{
-  document.querySelector('#editor').style.display = 'block'
-  document.querySelector('.ql-toolbar').style.display = 'block'
+   
+    document.querySelector('#tools').style.transform = "translateY(0)";
+
   show_toolbar.style.display = 'none'
   hide = false
   
   })
   
+let fontSize_value;
+let textAlign_value;
+
+
   document.querySelector('.reveal').addEventListener('click', ()=>{
   if(hide == false){
   document.querySelector('#tools').style.transform = "translateY(-100%)";
 
   show_toolbar.style.display = 'inline-block'
   hide = true
-  }else{
-  document.querySelector('#tools').style.transform = "translateY(0)";
-  show_toolbar.style.display = 'none'
-  hide = false
   }
+  // else{
+  // document.querySelector('#tools').style.transform = "translateY(0)";
+  // show_toolbar.style.display = 'none'
+  // hide = false
+  // }
   // reload()
   })
   
@@ -173,8 +179,12 @@ const value =  document.querySelector('.present').innerHTML
 editor.clipboard.dangerouslyPasteHTML(value)
 document.querySelector('#tools').style.transform = "translateY(-100%)";
 editor.root.blur()
+show_toolbar.style.display = 'block'
+
   } );
-console.log('test')
+
+  
+
 //add slide
 document.querySelector('.add_slide').addEventListener('click',()=>{
    let section = document.createElement('section')
@@ -182,17 +192,23 @@ document.querySelector('.add_slide').addEventListener('click',()=>{
     section.attribute = 'data-transition="slide-in fade-out"'
     document.querySelector('.slides').append(section)
     Reveal.next()
+    //current settings
+    document.querySelector('.present').style.textAlign= textAlign_value 
+    document.querySelector('.present').style.fontSize = fontSize_value
 })
+
+
 // text alignment
-document.querySelector('.text_align').addEventListener('change',(e)=>{
-document.querySelector('.present').style.textAlign= e.target.value
+document.querySelector('#text_align').addEventListener('change',(e)=>{
+  textAlign_value = e.target.value
+document.querySelector('.present').style.textAlign= textAlign_value 
  
 })
 
 //font size
 document.querySelector('#font_size').addEventListener('change',(e)=>{
-  console.log(e.target.value)
-  document.querySelector('.present').style.fontSize = e.target.value + 'px'
+fontSize_value = e.target.value + 'px'
+  document.querySelector('.present').style.fontSize = fontSize_value
    
   })
 
@@ -217,4 +233,4 @@ editor.on('editor-change', function(eventName, ...args) {
 
 
 
-document.querySelector('#editor').style.height= '700px'
+document.querySelector('#editor').style.height=window.innerHeight - 200 + 'px'
